@@ -243,11 +243,11 @@ function App() {
     <div className="main">
       <nav className="nav shadow-sm mb-2">
         <div className="d-flex flex-row container flex-wrap">
-          <a className="nav-link my-2" href="http://192.168.1.143:3002/">
+          <a className="nav-link my-2" onClick={() => navigate(-1)}>
             <img src={logo} alt="Logo DMC" className="logo" />
           </a>
           <div className="nav-link my-2">
-            <a className="home-button" href="http://192.168.1.143:3002/">
+            <a className="home-button" onClick={() => navigate(-1)}>
               {" "}
               Home
             </a>
