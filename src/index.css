@@ -1,10 +1,11 @@
+
 .viewer{
   margin: auto;
   background-color: #dccfe8;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 98vh;
+  height: 90vh;
   width: 100%;
   overflow-y: auto;
   margin-bottom: 10px;
@@ -17,3 +18,37 @@ span{
   background: linear-gradient(45deg, #687fe8, #7b70f1) !important;
   color: #dccfe8 !important;
 }
+
+.nav-main{
+  height: 60px;
+  background-color: #f9f9f9 !important;
+}
+.nav-link{
+  text-decoration: none !important;
+  color: rgb(44, 43, 43) !important;
+  font-size: 18px !important;
+}
+.home-button{
+  text-decoration: none !important;
+  color: rgb(218, 29, 218) !important;
+}
+.book-name{
+  color: rgb(90, 89, 89);
+  font-size: 14px;
+}
+.book-name:hover{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 410px) {
+  .nav-link {
+    margin: 0px !important;
+    font-size: 14px !important;
+  }
+  .logo{
+    width: 65px;
+  }
+  
+}
+
+

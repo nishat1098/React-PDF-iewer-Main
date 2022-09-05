@@ -10,13 +10,18 @@ import {
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { bookmarkPlugin } from "@react-pdf-viewer/bookmark";
 import { highlightPlugin, MessageIcon } from "@react-pdf-viewer/highlight";
+import { useNavigate } from "react-router-dom";
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import "@react-pdf-viewer/bookmark/lib/styles/index.css";
 import "@react-pdf-viewer/toolbar/lib/styles/index.css";
 
+import logo from "./logo.svg";
+
 function App() {
+  const navigate = useNavigate();
+
   console.log(window.location);
   const searchParams = window.location.search
     .replace("?", "")
@@ -29,6 +34,8 @@ function App() {
 
   console.log(searchParams.file);
   const fileName = searchParams.file;
+  const bookName = searchParams.book;
+  const authorName = searchParams.author;
 
   const newBook = "http://192.168.1.143:5000/uploads/books/" + fileName;
   const bookmarkPluginInstance = bookmarkPlugin();
@@ -36,7 +43,6 @@ function App() {
   const [notes, setNotes] = React.useState([]);
   const notesContainerRef = React.useRef(null);
   let noteId = notes.length;
-
   const noteEles = new Map();
 
   const transform = (slot) => ({
@@ -234,21 +240,40 @@ function App() {
     defaultLayoutPluginInstance.toolbarPluginInstance;
 
   return (
-    <div className="container">
-      {/* View PDF */}
-      <div className="viewer">
-        {
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
-            <Viewer
-              fileUrl={newBook}
-              plugins={[
-                defaultLayoutPluginInstance,
-                bookmarkPluginInstance,
-                highlightPluginInstance,
-              ]}
-            ></Viewer>
-          </Worker>
-        }
+    <div className="main">
+      <nav className="nav shadow-sm mb-2">
+        <div className="d-flex flex-row container flex-wrap">
+          <a className="nav-link my-2" href="http://192.168.1.143:3002/">
+            <img src={logo} alt="Logo DMC" className="logo" />
+          </a>
+          <div className="nav-link my-2">
+            <a className="home-button" href="http://192.168.1.143:3002/">
+              {" "}
+              Home
+            </a>
+
+            <span className="book-name" onClick={() => navigate(-1)}>
+              {"  / " + bookName}{" "}
+            </span>
+          </div>
+        </div>
+      </nav>
+      <div className="container">
+        {/* View PDF */}
+        <div className="viewer">
+          {
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
+              <Viewer
+                fileUrl={newBook}
+                plugins={[
+                  defaultLayoutPluginInstance,
+                  bookmarkPluginInstance,
+                  highlightPluginInstance,
+                ]}
+              ></Viewer>
+            </Worker>
+          }
+        </div>
       </div>
     </div>
   );
