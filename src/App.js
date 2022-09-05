@@ -11,6 +11,7 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { bookmarkPlugin } from "@react-pdf-viewer/bookmark";
 import { highlightPlugin, MessageIcon } from "@react-pdf-viewer/highlight";
 import { useNavigate } from "react-router-dom";
+import { OnHighlightKeyword } from "@react-pdf-viewer/search";
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
@@ -235,6 +236,15 @@ function App() {
         icon: <MessageIcon />,
         title: "Notes",
       }),
+    toolbarPlugin: {
+      searchPlugin: {
+        keyword: ["document"],
+        onHighlightKeyword: (props) => {
+          props.highlightEle.style.outline = "2px dashed red";
+          props.highlightEle.style.backgroundColor = "rgba(0, 0, 0, 1)";
+        },
+      },
+    },
   });
   const { renderDefaultToolbar } =
     defaultLayoutPluginInstance.toolbarPluginInstance;
