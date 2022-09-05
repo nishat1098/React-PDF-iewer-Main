@@ -54,6 +54,8 @@ function App() {
     PrintMenuItem: () => <></>,
     Open: () => <></>,
     OpenMenuItem: () => <></>,
+    SwitchTheme: () => <></>,
+    SwitchThemeMenuItem: () => <></>,
   });
 
   const renderHighlightTarget = (props) => (
@@ -251,8 +253,8 @@ function App() {
 
   return (
     <div className="main">
-      <nav className="nav shadow-sm mb-2">
-        <div className="d-flex flex-row container flex-wrap">
+      <nav className="nav shadow-sm mb-0">
+        <div className="d-flex flex-row ml-1 flex-wrap">
           <a className="nav-link my-2" onClick={() => navigate(-1)}>
             <img src={logo} alt="Logo DMC" className="logo" />
           </a>
@@ -268,7 +270,7 @@ function App() {
           </div>
         </div>
       </nav>
-      <div className="container">
+      <div className="">
         {/* View PDF */}
         <div className="viewer">
           {
