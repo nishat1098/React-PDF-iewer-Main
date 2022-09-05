@@ -1,0 +1,19 @@
+.viewer{
+  margin: auto;
+  background-color: #dccfe8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+  width: 100%;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+span{
+  margin-top: 3px;
+}
+.rpv-default-layout__toolbar {
+  background: linear-gradient(45deg, #687fe8, #7b70f1) !important;
+  color: #dccfe8 !important;
+}
