@@ -15,8 +15,9 @@ span{
   margin-top: 3px;
 }
 .rpv-default-layout__toolbar {
-  background: linear-gradient(45deg, #7e5e4f, rgb(122, 79, 65)) !important;
+  background: linear-gradient(45deg, #ff6652, #fd604c) !important;
   color: #ffffff !important;
+  font-weight: bolder !important;
 }
 
 .nav-main{
@@ -59,7 +60,7 @@ cursor: pointer;
   color: white !important;
 }
 .rpv-default-layout__sidebar-headers{
-  background-color: #b2654b !important;
+  background-color: #7a7a7a !important;
 }
 .rpv-zoom__popover-target {
   color: white !important;

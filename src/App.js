@@ -23,7 +23,7 @@ import logo from "./logo.svg";
 function App() {
   const navigate = useNavigate();
 
-  console.log(window.location);
+  // console.log(window.location);
   const searchParams = window.location.search
     .replace("?", "")
     .split("&")
@@ -33,7 +33,7 @@ function App() {
       return values;
     }, {});
 
-  console.log(searchParams.file);
+  // console.log(searchParams.file);
   const fileName = searchParams.file;
   const bookName = searchParams.book;
   const authorName = searchParams.author;
@@ -94,6 +94,8 @@ function App() {
         };
         setNotes(notes.concat([note]));
         props.cancel();
+        console.log(notes);
+        // localStorage.setItem("notes", notes);
       }
     };
 
@@ -101,10 +103,10 @@ function App() {
       <div
         style={{
           background: "#fff",
-          border: "1px solid rgba(0, 0, 0, .3)",
+          border: "1px solid rgba(0, 0, 0, .2)",
           borderRadius: "2px",
           padding: "8px",
-          position: "absolute",
+          position: "fixed",
           left: `${props.selectionRegion.left}%`,
           top: `${props.selectionRegion.top + props.selectionRegion.height}%`,
           zIndex: 1,
@@ -126,7 +128,7 @@ function App() {
           }}
         >
           <div style={{ marginRight: "8px" }}>
-            <PrimaryButton onClick={addNote}>Add</PrimaryButton>
+            <Button onClick={addNote}>Add</Button>
           </div>
           <Button onClick={props.cancel}>Cancel</Button>
         </div>
