@@ -22,6 +22,7 @@ import logo from "./logo.svg";
 
 function App() {
   const navigate = useNavigate();
+  const noteSaver = [];
 
   // console.log(window.location);
   const searchParams = window.location.search
@@ -38,12 +39,19 @@ function App() {
   const bookName = searchParams.book;
   const authorName = searchParams.author;
 
+  let savedMainNotes = [];
+
+  let savedNotes = localStorage.getItem(fileName.toString());
+  savedMainNotes = JSON.parse(savedNotes);
+  console.log(savedMainNotes);
+
   const newBook = "http://192.168.1.143:5000/uploads/books/" + fileName;
   const bookmarkPluginInstance = bookmarkPlugin();
   const [message, setMessage] = React.useState("");
-  const [notes, setNotes] = React.useState([]);
+  const [notes, setNotes] = React.useState(savedMainNotes || []);
   const notesContainerRef = React.useRef(null);
-  let noteId = notes.length;
+  let noteId = 0;
+  if (notes.length) noteId = notes.length;
   const noteEles = new Map();
 
   const transform = (slot) => ({
@@ -92,10 +100,16 @@ function App() {
           highlightAreas: props.highlightAreas,
           quote: props.selectedText,
         };
+        noteSaver.push([note]);
+
         setNotes(notes.concat([note]));
+        notes.push(note);
+
+        // let bookTitle =
+        // fileName.toString() + "_" + "notes_" + "noteID_" + note.id.toString();
+
         props.cancel();
         console.log(notes);
-        // localStorage.setItem("notes", notes);
       }
     };
 
@@ -128,7 +142,14 @@ function App() {
           }}
         >
           <div style={{ marginRight: "8px" }}>
-            <Button onClick={addNote}>Add</Button>
+            <Button
+              onClick={() => {
+                addNote();
+                saveNotesinLocal();
+              }}
+            >
+              Add
+            </Button>
           </div>
           <Button onClick={props.cancel}>Cancel</Button>
         </div>
@@ -136,6 +157,9 @@ function App() {
     );
   };
 
+  const saveNotesinLocal = () => {
+    localStorage.setItem(fileName.toString(), JSON.stringify(notes));
+  };
   const jumpToNote = (note) => {
     const notesContainer = notesContainerRef.current;
     if (noteEles.has(note.id) && notesContainer) {
