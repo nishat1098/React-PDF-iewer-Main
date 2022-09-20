@@ -17,8 +17,11 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import "@react-pdf-viewer/bookmark/lib/styles/index.css";
 import "@react-pdf-viewer/toolbar/lib/styles/index.css";
+import { useEffect, useState } from "react";
 
 import logo from "./logo.svg";
+
+import axios from "axios";
 
 function App() {
   const navigate = useNavigate();
@@ -38,21 +41,36 @@ function App() {
   const fileName = searchParams.file;
   const bookName = searchParams.book;
   const authorName = searchParams.author;
-
-  let savedMainNotes = [];
-
-  let savedNotes = localStorage.getItem(fileName.toString());
-  savedMainNotes = JSON.parse(savedNotes);
-  console.log(savedMainNotes);
+  const user = searchParams.user;
 
   const newBook = "http://192.168.1.143:5000/uploads/books/" + fileName;
   const bookmarkPluginInstance = bookmarkPlugin();
   const [message, setMessage] = React.useState("");
-  const [notes, setNotes] = React.useState(savedMainNotes || []);
+  const [notes, setNotes] = React.useState([]);
   const notesContainerRef = React.useRef(null);
   let noteId = 0;
   if (notes.length) noteId = notes.length;
   const noteEles = new Map();
+
+  const getAnswer = async () => {
+    const { data } = await axios(
+      "http://192.168.1.143:5000/api/v1/user/book/notes/" +
+        user +
+        "/" +
+        fileName
+    );
+    // console.log(data, "from axios call");
+    const dataArray = [];
+    for (var i = 0; i < data.data.length; i++) {
+      dataArray.push(data.data[i].note);
+    }
+    // console.log(dataArray, "its data array");
+    setNotes(dataArray);
+  };
+
+  useEffect(() => {
+    getAnswer();
+  }, []);
 
   const transform = (slot) => ({
     ...slot,
@@ -90,7 +108,7 @@ function App() {
       />
     </div>
   );
-
+  var payload;
   const renderHighlightContent = (props) => {
     const addNote = () => {
       if (message !== "") {
@@ -99,6 +117,11 @@ function App() {
           content: message,
           highlightAreas: props.highlightAreas,
           quote: props.selectedText,
+        };
+        payload = {
+          userId: user,
+          bookId: fileName,
+          note: note,
         };
         noteSaver.push([note]);
 
@@ -157,9 +180,19 @@ function App() {
     );
   };
 
-  const saveNotesinLocal = () => {
+  /* this is note save api call in the db */
+  const saveNotesinLocal = async () => {
+    try {
+      await axios.post(
+        "http://192.168.1.143:5000/api/v1/user/book/notes/save",
+        payload
+      );
+    } catch (err) {
+      console.log(err.response.message, "note save error");
+    }
     localStorage.setItem(fileName.toString(), JSON.stringify(notes));
   };
+
   const jumpToNote = (note) => {
     const notesContainer = notesContainerRef.current;
     if (noteEles.has(note.id) && notesContainer) {
