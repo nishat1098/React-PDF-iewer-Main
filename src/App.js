@@ -42,6 +42,7 @@ function App() {
   const bookName = searchParams.book;
   const authorName = searchParams.author;
   const user = searchParams.user;
+  const bookId = searchParams.bookId;
 
   const newBook = "http://192.168.1.143:5000/uploads/books/" + fileName;
   const bookmarkPluginInstance = bookmarkPlugin();
@@ -68,8 +69,19 @@ function App() {
     setNotes(dataArray);
   };
 
+  const updateRating = async () => {
+    try {
+      const { data } = await axios.post(
+        "http://192.168.1.143:5000/api/v1/user/book/rateInc/" + bookId
+      );
+    } catch (err) {
+      console.log(err, "Book Rating Update Error");
+    }
+  };
+
   useEffect(() => {
     getAnswer();
+    updateRating();
   }, []);
 
   const transform = (slot) => ({
