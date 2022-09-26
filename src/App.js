@@ -43,6 +43,7 @@ function App() {
   const authorName = searchParams.author;
   const user = searchParams.user;
   const bookId = searchParams.bookId;
+  const token = searchParams.token;
 
   const newBook = "http://192.168.1.143:5000/uploads/books/" + fileName;
   const bookmarkPluginInstance = bookmarkPlugin();
@@ -343,13 +344,14 @@ function App() {
       </nav>
       <div className="">
         {/* View PDF */}
+
         <div className="viewer">
           {
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
               <Viewer
                 fileUrl={newBook}
                 httpHeaders={{
-                  key: "hello",
+                  Authorization: `Bearer ${token}`,
                 }}
                 withCredentials={true}
                 plugins={[
