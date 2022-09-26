@@ -45,7 +45,7 @@ function App() {
   const bookId = searchParams.bookId;
   const token = searchParams.token;
 
-  const newBook = "http://192.168.1.143/uploads/books/" + fileName;
+  const newBook = "http://192.168.1.143:5000/uploads/books/" + fileName;
   const bookmarkPluginInstance = bookmarkPlugin();
   const [message, setMessage] = React.useState("");
   const [notes, setNotes] = React.useState([]);
