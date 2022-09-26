@@ -45,7 +45,8 @@ function App() {
   const bookId = searchParams.bookId;
   const token = searchParams.token;
 
-  const newBook = "http://192.168.1.143/uploads/books/" + fileName;
+  const newBook =
+    "http://192.168.1.143/uploads/books/" + fileName + "?test=blabla";
   const bookmarkPluginInstance = bookmarkPlugin();
   const [message, setMessage] = React.useState("");
   const [notes, setNotes] = React.useState([]);
@@ -350,10 +351,10 @@ function App() {
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
               <Viewer
                 fileUrl={newBook}
-                httpHeaders={{
-                  // Authorization: `Bearer ${token}`,
-                  token: "Bearer blabla",
-                }}
+                // httpHeaders={{
+                //   // Authorization: `Bearer ${token}`,
+                //   token: "Bearer blabla",
+                // }}
                 // withCredentials={true}
                 plugins={[
                   defaultLayoutPluginInstance,
