@@ -353,7 +353,7 @@ function App() {
                 httpHeaders={{
                   Authorization: `Bearer ${token}`,
                 }}
-                withCredentials={true}
+                // withCredentials={true}
                 plugins={[
                   defaultLayoutPluginInstance,
                   bookmarkPluginInstance,
