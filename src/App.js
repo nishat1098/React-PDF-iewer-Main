@@ -43,7 +43,8 @@ function App() {
   const authorName = searchParams.author;
   const user = searchParams.user;
   const bookId = searchParams.bookId;
-  const token = searchParams.token;
+  // const token = searchParams.token;
+  const token = "userTokenToAccessBook";
 
   const newBook =
     "http://192.168.1.143/uploads/books/" + fileName + "?test=blabla";
