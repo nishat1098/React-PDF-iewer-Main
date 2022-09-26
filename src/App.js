@@ -351,7 +351,8 @@ function App() {
               <Viewer
                 fileUrl={newBook}
                 httpHeaders={{
-                  Authorization: `Bearer ${token}`,
+                  // Authorization: `Bearer ${token}`,
+                  Authorization: "blabla",
                 }}
                 // withCredentials={true}
                 plugins={[
