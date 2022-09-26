@@ -352,7 +352,7 @@ function App() {
                 fileUrl={newBook}
                 httpHeaders={{
                   // Authorization: `Bearer ${token}`,
-                  Authorization: "Bearer blabla",
+                  token: "Bearer blabla",
                 }}
                 // withCredentials={true}
                 plugins={[
