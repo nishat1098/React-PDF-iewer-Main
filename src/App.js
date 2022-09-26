@@ -351,10 +351,10 @@ function App() {
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
               <Viewer
                 fileUrl={newBook}
-                // httpHeaders={{
-                //   // Authorization: `Bearer ${token}`,
-                //   token: "Bearer blabla",
-                // }}
+                httpHeaders={{
+                  Authorization: `Bearer ${token}`,
+                  // token: "Bearer blabla",
+                }}
                 // withCredentials={true}
                 plugins={[
                   defaultLayoutPluginInstance,
