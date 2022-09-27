@@ -356,7 +356,7 @@ function App() {
                   Authorization: `Bearer ${token}`,
                   // token: "Bearer blabla",
                 }}
-                withCredentials={true}
+                // withCredentials={true}
                 plugins={[
                   defaultLayoutPluginInstance,
                   bookmarkPluginInstance,
